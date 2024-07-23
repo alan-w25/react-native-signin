@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-signin",
-    "slug": "react-native-signin",
+    "name": "react-native-signin-frontend",
+    "slug": "react-native-signin-frontend",
     "scheme": "react-native-signin",
     "version": "1.0.0",
     "orientation": "portrait",

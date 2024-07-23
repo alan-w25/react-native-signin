@@ -43,8 +43,8 @@ const SignUp = () => {
           
           /> 
           <CustomButton 
-            title="Sign In"
-            containerStyles="w-[85vw] mt-8"
+            title="Sign Up"
+            containerStyles="w-5/6 mt-8"
           />
         </View>
 
