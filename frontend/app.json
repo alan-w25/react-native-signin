@@ -13,13 +13,9 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier":"com.alanwu.signinapp", 
-      "googleServicesFile": "./ios/GoogleService-Info.plist"
+      "supportsTablet": true
     },
     "android": {
-      "package":"com.alanwu.signinapp",
-      "googleServicesFile":"./android/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
