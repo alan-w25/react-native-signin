@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "99792931755",
+    "project_id": "react-native-signin-9eaf0",
+    "storage_bucket": "react-native-signin-9eaf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99792931755:android:b0f9ffbcddfee9a2c0e0ee",
+        "android_client_info": {
+          "package_name": "com.alanwu.singinapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXwHQ9vYz40i9oVJigrRdI4RtqbFz8EKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

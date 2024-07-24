@@ -16,7 +16,7 @@ const FormInput = ({title, value, placeholder, handleChangeText, otherStyles, ..
                 value={value}
                 placeholder={placeholder}
                 onChangeText={handleChangeText}
-                secureTextEntry = {title === 'Password' && !showPassword}
+                secureTextEntry = {(title === 'Password' || placeholder === 'confirm password') && !showPassword}
             />
 
             {title === 'Password' && (
@@ -27,12 +27,10 @@ const FormInput = ({title, value, placeholder, handleChangeText, otherStyles, ..
                         source = {!showPassword ? icons.eyeShow : icons.eyeHide}
                         className="w-6 h-6"
                     />
-
                 </TouchableOpacity>
 
             )}
         </View>
-        
     </View>
   )
 }

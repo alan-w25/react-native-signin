@@ -1,12 +1,45 @@
-import { View, Text, ScrollView } from 'react-native'
-import { Link } from 'expo-router'
+import { View, Text, ScrollView, Alert } from 'react-native'
+import { Link, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {React, useState} from 'react'
 import CustomButton from '../../components/CustomButton' 
 import FormInput from '../../components/FormInput'
 import GoogleAuth from '../../components/GoogleAuth'
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const API_ENDPOINT = 'http://127.0.0.1:8000/api/login/'
 
 const SignIn = () => {
+
+  const handleLogin = async () => {
+    if (!form.email || !form.password){
+      Alert.alert('Error', 'Please fill in all the fields')
+      return;
+    }
+
+    try {
+
+      const response = await axios.post(API_ENDPOINT, {
+        email: form.email, 
+        password: form.password
+      });
+
+      if (response.status === 200){
+        const {access, refresh} = response.data; 
+        await AsyncStorage.setItem('access', access); 
+        await AsyncStorage.setItem('refresh', refresh);
+        Alert.alert('Success', 'Login successful');
+        form.email = '';
+        form.password = '';
+        router.replace('/home');
+      }
+
+    } catch(error){
+      const errorMessage = error.response?.data?.detail || 'Login failed';
+      Alert.alert('Error', JSON.stringify(errorMessage));
+    }
+  }
 
   const [form, setForm] = useState({
     email: '', 
@@ -36,6 +69,7 @@ const SignIn = () => {
           <CustomButton 
             title="Sign In"
             containerStyles="w-[85vw] mt-8"
+            handlePress = {handleLogin}
           />
 
           <Link className="mt-4" href="/">Forgot Password?</Link>

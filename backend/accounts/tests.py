@@ -127,3 +127,58 @@ class UserRegistrationTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('username', response.data)
         self.assertFalse(User.objects.filter(email='test3@example.com').exists())
+        
+
+class UserLoginTests(TestCase): 
+    
+    def setUp(self): 
+        self.client = APIClient() 
+        self.login_url = reverse('login')
+        self.user = User.objects.create_user(
+            email='test@example.com', 
+            username='testuser',
+            password='password123')
+        
+    def test_login_success(self): 
+        response = self.client.post(self.login_url, {
+            'email':'test@example.com', 
+            'password':'password123'
+        })
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', response.data)
+        self.assertIn('refresh', response.data)
+    
+    def test_login_invalid_credentials(self): 
+        response = self.client.post(self.login_url, {
+            'email':'test@example.com', 
+            'password':'wrongpassword'
+        })
+        print(response)
+        
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn('access', response.data)
+        self.assertNotIn('refresh', response.data)
+        
+    def test_login_missing_fields(self): 
+        response = self.client.post(self.login_url, {
+            'email': 'test@example.com'
+        })
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertNotIn('access', response.data)
+        self.assertNotIn('refresh',response.data)
+    
+    def test_refresh_tokens(self): 
+        login_response = self.client.post(self.login_url, {
+            'email':'test@example.com', 
+            'password':'password123',
+        }) 
+        refresh_token = login_response.data['refresh']
+        
+        refresh_url = reverse('token_refresh')
+        response = self.client.post(refresh_url, {
+            'refresh':refresh_token,
+        })
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', response.data)
